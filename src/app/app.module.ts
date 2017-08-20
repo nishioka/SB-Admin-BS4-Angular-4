@@ -1,3 +1,7 @@
+import 'zone.js/dist/zone-mix';
+import 'reflect-metadata';
+import 'polyfills';
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
@@ -8,11 +12,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+
+import { ElectronService } from './providers/electron.service';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
     // for development
     // return new TranslateHttpLoader(http, '/start-angular/SB-Admin-BS4-Angular-4/master/dist/assets/i18n/', '.json');
-    return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
     declarations: [
@@ -32,7 +38,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard],
+  providers: [AuthGuard, ElectronService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
